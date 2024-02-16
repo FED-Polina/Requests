@@ -1,0 +1,50 @@
+﻿<Window x:Class="OOO_Requests.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OOO_Requests"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="450" Width="800" Icon="/request.ico" MinHeight="450" MinWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Заголовок-->
+        <Grid Grid.Row="0" Background="#FFFFCC9B">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="/Resources/logo.png" Margin="5"/>
+            <TextBlock Text="Авторизация"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource Title}"/>
+            <Button x:Name="buttonNavigation" Grid.Column="2" Background="#FFCC6600" Content="Выход" Margin="15" Style="{StaticResource Title}" Foreground="White" Click="buttonNavigation_Click"/>
+        </Grid>
+        
+        <Grid Grid.Row="1" x:Name="gridMain">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Логин:"  Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15" Style="{StaticResource Normal}"/>
+            <TextBlock Text="Пароль:"  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15" Style="{StaticResource Normal}"/>
+            <TextBox x:Name="tbLogin" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Width="227" Style="{StaticResource Normal}" />
+            
+            <PasswordBox Name="passwordBoxPassword" Grid.Row="2" Grid.Column="1" 
+                      Margin="20,0,0,0" Width="227" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+            <Button x:Name="buttonEnter" Grid.Row="4" Background="#FFCC6600" Content="Войти" Margin="308,20,308,20" Style="{StaticResource Normal}" Foreground="White" Click="buttonEnter_Click" Grid.ColumnSpan="2"/>
+        </Grid>
+    </Grid>
+</Window>

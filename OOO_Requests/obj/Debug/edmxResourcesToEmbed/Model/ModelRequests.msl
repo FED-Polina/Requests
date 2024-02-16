@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBRequestsModelStoreContainer" CdmEntityContainer="DBRequests">
+    <EntitySetMapping Name="Repair">
+      <EntityTypeMapping TypeName="DBRequestsModel.Repair">
+        <MappingFragment StoreEntitySet="Repair">
+          <ScalarProperty Name="RepairId" ColumnName="RepairId" />
+          <ScalarProperty Name="RepairStep" ColumnName="RepairStep" />
+          <ScalarProperty Name="RepairMaster" ColumnName="RepairMaster" />
+          <ScalarProperty Name="RepairTime" ColumnName="RepairTime" />
+          <ScalarProperty Name="RepairComment" ColumnName="RepairComment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Request">
+      <EntityTypeMapping TypeName="DBRequestsModel.Request">
+        <MappingFragment StoreEntitySet="Request">
+          <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+          <ScalarProperty Name="RequestDateAdd" ColumnName="RequestDateAdd" />
+          <ScalarProperty Name="RequestMachine" ColumnName="RequestMachine" />
+          <ScalarProperty Name="RequestType" ColumnName="RequestType" />
+          <ScalarProperty Name="RequestDescription" ColumnName="RequestDescription" />
+          <ScalarProperty Name="RequestClient" ColumnName="RequestClient" />
+          <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="DBRequestsModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status">
+      <EntityTypeMapping TypeName="DBRequestsModel.Status">
+        <MappingFragment StoreEntitySet="Status">
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Step">
+      <EntityTypeMapping TypeName="DBRequestsModel.Step">
+        <MappingFragment StoreEntitySet="Step">
+          <ScalarProperty Name="StepId" ColumnName="StepId" />
+          <ScalarProperty Name="StepName" ColumnName="StepName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeOfRequest">
+      <EntityTypeMapping TypeName="DBRequestsModel.TypeOfRequest">
+        <MappingFragment StoreEntitySet="TypeOfRequest">
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="DBRequestsModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+          <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

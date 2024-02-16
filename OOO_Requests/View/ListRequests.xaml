@@ -1,0 +1,85 @@
+﻿<Window x:Class="OOO_Requests.View.ListRequests"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OOO_Requests.View"
+        mc:Ignorable="d"
+        Title="Список заявок" Height="450" Width="1300" MinHeight="450" MinWidth="1300" Activated="Window_Activated">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="283*"/>
+            <RowDefinition Height="71*"/>
+        </Grid.RowDefinitions>
+
+        <!--Заголовок-->
+        <Grid Grid.Row="0" Background="#FFFFCC9B">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="/Resources/logo.png" Margin="5"/>
+            <TextBlock Text="Список заявок"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource Title}"/>
+            <Button x:Name="buttonNavigation" Grid.Column="2" Background="#FFCC6600" Content="Назад" Margin="15" Style="{StaticResource Title}" Foreground="White" Click="buttonNavigation_Click"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="597*"/>
+                <ColumnDefinition Width="203*"/>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid x:Name="dgRequests" Grid.Row="0" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Номер заявки" Binding="{Binding Path=RequestId}"/>
+                    <DataGridTextColumn Header="Дата добавления" Binding="{Binding Path=RequestDateAdd}"/>
+                    <DataGridTextColumn Header="Оборудование" Binding="{Binding Path=RequestMachine}"/>
+                    <DataGridTextColumn Header="Тип неисправности" Binding="{Binding Path=TypeOfRequest.TypeName}"/>
+                    <DataGridTextColumn Header="Описание проблемы" Binding="{Binding Path=RequestDescription}"/>
+                    <DataGridTextColumn Header="Клиент" Binding="{Binding Path=User.UserFullName}"/>
+                    <DataGridTextColumn Header="Статус заявки" Binding="{Binding Path=Status.StatusName}"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+            <!--Право - фильтр-->
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="Фильтры" Style="{StaticResource Title}" HorizontalAlignment="Center"/>
+                <TextBlock Text="Фильтрация по статусу" Style="{StaticResource Normal}"/>
+                <ComboBox x:Name="cbFilterStatus" SelectionChanged="cbFilterStatus_SelectionChanged" DisplayMemberPath="StatusName">
+                </ComboBox>
+
+                <TextBlock Text="Фильтрация по типу неисправности" Style="{StaticResource Normal}"/>
+                <ComboBox x:Name="cbFilterType" SelectionChanged="cbFilterType_SelectionChanged" DisplayMemberPath="TypeName">
+                </ComboBox>
+                <TextBlock Text="Поиск по номеру заявки/оборудованию" Style="{StaticResource Normal}"/>
+                <TextBox x:Name="tbSearch" Style="{StaticResource Normal}" TextChanged="tbSearch_TextChanged" />
+                <Button x:Name="butNullFilter" Content="Очистить фильтры" Margin="10" Style="{StaticResource Title}" Click="butNullFilter_Click"  />
+
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="butAddRequest" Content="Регистрация заявки" Margin="10"
+            Style="{StaticResource Title}" Click="butAddRequest_Click"  />
+                <Button x:Name="butWorkingRequest" Content="Обработка заявки" Margin="10"
+            Style="{StaticResource Title}" Click="butWorkingRequest_Click"  />
+                <Button x:Name="butEditRequest" Content="Редактирование заявки" Margin="10"
+            Style="{StaticResource Title}" Click="butEditRequest_Click"  />
+                <Button x:Name="butStatistics" Content="Статистика" Margin="10"
+            Style="{StaticResource Title}" Click="butStatistics_Click"  />
+                <Button x:Name="butReport" Content="Отчет от исполнении заявки" Margin="10"
+            Style="{StaticResource Title}" Click="butReport_Click"  />
+            </StackPanel>
+            
+        </Grid> 
+          
+    </Grid>
+</Window>

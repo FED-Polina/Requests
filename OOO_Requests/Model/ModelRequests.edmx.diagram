@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cf78d97c4f2145aea212b10de13ee827" Name="Diagram1">
+        <EntityTypeShape EntityType="DBRequestsModel.Repair" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBRequestsModel.Request" Width="1.5" PointX="8.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBRequestsModel.Role" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBRequestsModel.Status" Width="1.5" PointX="6" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBRequestsModel.Step" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBRequestsModel.TypeOfRequest" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBRequestsModel.User" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="DBRequestsModel.FK_Repair_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="DBRequestsModel.FK_Repair_Step" ManuallyRouted="false" />
+        <AssociationConnector Association="DBRequestsModel.FK_Repair_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DBRequestsModel.FK_Request_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="DBRequestsModel.FK_Request_TypeOfRequest" ManuallyRouted="false" />
+        <AssociationConnector Association="DBRequestsModel.FK_Request_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DBRequestsModel.FK_User_Role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

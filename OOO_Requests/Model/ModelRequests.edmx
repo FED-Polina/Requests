@@ -1,0 +1,485 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBRequestsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Repair">
+          <Key>
+            <PropertyRef Name="RepairId" />
+          </Key>
+          <Property Name="RepairId" Type="int" Nullable="false" />
+          <Property Name="RepairStep" Type="int" Nullable="false" />
+          <Property Name="RepairMaster" Type="int" Nullable="false" />
+          <Property Name="RepairTime" Type="int" Nullable="false" />
+          <Property Name="RepairComment" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestDateAdd" Type="date" Nullable="false" />
+          <Property Name="RequestMachine" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RequestType" Type="int" Nullable="false" />
+          <Property Name="RequestDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="RequestClient" Type="int" Nullable="false" />
+          <Property Name="RequestStatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Step">
+          <Key>
+            <PropertyRef Name="StepId" />
+          </Key>
+          <Property Name="StepId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StepName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypeOfRequest">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserFullName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserLogin" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserRole" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Repair_Request">
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="Repair" Type="Self.Repair" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="Repair">
+              <PropertyRef Name="RepairId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repair_Step">
+          <End Role="Step" Type="Self.Step" Multiplicity="1" />
+          <End Role="Repair" Type="Self.Repair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Step">
+              <PropertyRef Name="StepId" />
+            </Principal>
+            <Dependent Role="Repair">
+              <PropertyRef Name="RepairStep" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repair_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Repair" Type="Self.Repair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Repair">
+              <PropertyRef Name="RepairMaster" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_TypeOfRequest">
+          <End Role="TypeOfRequest" Type="Self.TypeOfRequest" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeOfRequest">
+              <PropertyRef Name="TypeId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBRequestsModelStoreContainer">
+          <EntitySet Name="Repair" EntityType="Self.Repair" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Step" EntityType="Self.Step" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeOfRequest" EntityType="Self.TypeOfRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Repair_Request" Association="Self.FK_Repair_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Repair" EntitySet="Repair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repair_Step" Association="Self.FK_Repair_Step">
+            <End Role="Step" EntitySet="Step" />
+            <End Role="Repair" EntitySet="Repair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repair_User" Association="Self.FK_Repair_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Repair" EntitySet="Repair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Status" Association="Self.FK_Request_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_TypeOfRequest" Association="Self.FK_Request_TypeOfRequest">
+            <End Role="TypeOfRequest" EntitySet="TypeOfRequest" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_User" Association="Self.FK_Request_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBRequestsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Repair">
+          <Key>
+            <PropertyRef Name="RepairId" />
+          </Key>
+          <Property Name="RepairId" Type="Int32" Nullable="false" />
+          <Property Name="RepairStep" Type="Int32" Nullable="false" />
+          <Property Name="RepairMaster" Type="Int32" Nullable="false" />
+          <Property Name="RepairTime" Type="Int32" Nullable="false" />
+          <Property Name="RepairComment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Repair_Request" FromRole="Repair" ToRole="Request" />
+          <NavigationProperty Name="Step" Relationship="Self.FK_Repair_Step" FromRole="Repair" ToRole="Step" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Repair_User" FromRole="Repair" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestDateAdd" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RequestMachine" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestType" Type="Int32" Nullable="false" />
+          <Property Name="RequestDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RequestClient" Type="Int32" Nullable="false" />
+          <Property Name="RequestStatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Repair" Relationship="Self.FK_Repair_Request" FromRole="Request" ToRole="Repair" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Request_Status" FromRole="Request" ToRole="Status" />
+          <NavigationProperty Name="TypeOfRequest" Relationship="Self.FK_Request_TypeOfRequest" FromRole="Request" ToRole="TypeOfRequest" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Request_User" FromRole="Request" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_Status" FromRole="Status" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Step">
+          <Key>
+            <PropertyRef Name="StepId" />
+          </Key>
+          <Property Name="StepId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StepName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Repair" Relationship="Self.FK_Repair_Step" FromRole="Step" ToRole="Repair" />
+        </EntityType>
+        <EntityType Name="TypeOfRequest">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_TypeOfRequest" FromRole="TypeOfRequest" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserFullName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserLogin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Repair" Relationship="Self.FK_Repair_User" FromRole="User" ToRole="Repair" />
+          <NavigationProperty Name="Request" Relationship="Self.FK_Request_User" FromRole="User" ToRole="Request" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Repair_Request">
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="Repair" Type="Self.Repair" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="Repair">
+              <PropertyRef Name="RepairId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repair_Step">
+          <End Role="Step" Type="Self.Step" Multiplicity="1" />
+          <End Role="Repair" Type="Self.Repair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Step">
+              <PropertyRef Name="StepId" />
+            </Principal>
+            <Dependent Role="Repair">
+              <PropertyRef Name="RepairStep" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repair_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Repair" Type="Self.Repair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Repair">
+              <PropertyRef Name="RepairMaster" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_TypeOfRequest">
+          <End Role="TypeOfRequest" Type="Self.TypeOfRequest" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeOfRequest">
+              <PropertyRef Name="TypeId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBRequests" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Repair" EntityType="Self.Repair" />
+          <EntitySet Name="Request" EntityType="Self.Request" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Step" EntityType="Self.Step" />
+          <EntitySet Name="TypeOfRequest" EntityType="Self.TypeOfRequest" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Repair_Request" Association="Self.FK_Repair_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Repair" EntitySet="Repair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repair_Step" Association="Self.FK_Repair_Step">
+            <End Role="Step" EntitySet="Step" />
+            <End Role="Repair" EntitySet="Repair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repair_User" Association="Self.FK_Repair_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Repair" EntitySet="Repair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_Status" Association="Self.FK_Request_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_TypeOfRequest" Association="Self.FK_Request_TypeOfRequest">
+            <End Role="TypeOfRequest" EntitySet="TypeOfRequest" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_User" Association="Self.FK_Request_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBRequestsModelStoreContainer" CdmEntityContainer="DBRequests">
+          <EntitySetMapping Name="Repair">
+            <EntityTypeMapping TypeName="DBRequestsModel.Repair">
+              <MappingFragment StoreEntitySet="Repair">
+                <ScalarProperty Name="RepairId" ColumnName="RepairId" />
+                <ScalarProperty Name="RepairStep" ColumnName="RepairStep" />
+                <ScalarProperty Name="RepairMaster" ColumnName="RepairMaster" />
+                <ScalarProperty Name="RepairTime" ColumnName="RepairTime" />
+                <ScalarProperty Name="RepairComment" ColumnName="RepairComment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Request">
+            <EntityTypeMapping TypeName="DBRequestsModel.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="RequestDateAdd" ColumnName="RequestDateAdd" />
+                <ScalarProperty Name="RequestMachine" ColumnName="RequestMachine" />
+                <ScalarProperty Name="RequestType" ColumnName="RequestType" />
+                <ScalarProperty Name="RequestDescription" ColumnName="RequestDescription" />
+                <ScalarProperty Name="RequestClient" ColumnName="RequestClient" />
+                <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="DBRequestsModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="DBRequestsModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Step">
+            <EntityTypeMapping TypeName="DBRequestsModel.Step">
+              <MappingFragment StoreEntitySet="Step">
+                <ScalarProperty Name="StepId" ColumnName="StepId" />
+                <ScalarProperty Name="StepName" ColumnName="StepName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeOfRequest">
+            <EntityTypeMapping TypeName="DBRequestsModel.TypeOfRequest">
+              <MappingFragment StoreEntitySet="TypeOfRequest">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="DBRequestsModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserFullName" ColumnName="UserFullName" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
